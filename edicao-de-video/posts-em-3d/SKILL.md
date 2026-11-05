@@ -42,7 +42,12 @@ ffmpeg -i bruto.MOV -t 20 -map 0:v:0 -map 0:a:0 -vf "scale=1080:1920:force_origi
 mkdir -p quadros mask && ffmpeg -i base.mp4 -q:v 2 quadros/%05d.jpg
 swift scripts/seg.swift quadros mask
 ```
-O Vision recorta pessoas, não objetos: cadeira, mesa ou violão ficam **atrás** dos posts. Deixe os cards longe deles, ou use um card `"frente"` para esconder o objeto.
+O Vision recorta pessoas, não objetos: cadeira, mesa ou violão ficariam **atrás** dos posts, e os posts passam entre a pessoa e o móvel (parece que ela sentou no card). Se a pessoa está sentada ou apoiada em algo, inclua o móvel na máscara:
+```bash
+swift scripts/seg_objetos.swift            # (usado pelo script abaixo)
+python3 -I scripts/mascara_objetos.py quadros mask mask_tudo --zona x0,y0,x1,y1
+```
+Ele apaga a pessoa (pinta da cor do fundo), recorta o objeto em destaque com o Vision, fica só com o que encosta nela e junta com a máscara da pessoa. `--zona` limita o objeto à área do móvel: sem ela entram estante, prateleira e cabos que tocam a pessoa. Audite sobre magenta (1 quadro a cada ~1,5 s) e use `"mascara": "mask_tudo"` no projeto.
 
 ### 3. Achar os lugares
 Faça uma grade de alguns quadros e veja onde está a parede livre e onde fica a cabeça:
@@ -72,9 +77,22 @@ python3 -I scripts/mural.py projeto.json --gestos
 - **Posição**: `x, y` = centro em px do base; `largura` em px (post 220–400). Sem `x/y/largura`, usa a composição pronta do vídeo de referência (9 lugares em volta da pessoa).
 - **Giro** `rot: [rx, ry, rz]` em graus. `ry` é o Flip horizontal: cards da **esquerda com ry positivo** (olham pro centro), da **direita negativo**, 20–30°. `rx` é o Flip vertical ("mais deitadinho"), 0–12°. `rz` inclinação de 2–6°, alternando o sinal. Variar tamanhos e ângulos é o que faz o efeito.
 - **Tempo**: `entra` em segundos (sem ele, usa os gestos). `sai` opcional. `anim`: `flip` (padrão, o 3D Flip), `pop`, `cai`, `vem` (sai do fundo).
-- `"frente": true`: card na frente da pessoa (um pequeno, num canto, dá profundidade).
+- **Comentário** (`"tipo": "comentario"`): balão com avatar, `usuario`, `texto`, `quando`, `curtidas` (`"escuro": true` para tema escuro). Sem `midia`. Largura 420–560.
+- **Notificação** (`"tipo": "notificacao"`): banner de celular com `app`, `titulo`, `texto`, `cor_app` e `simbolo` (letra no ícone). Largura 540–700. Fica bem com `"anim": "cai"`.
+- `"frente": true`: card na frente da pessoa (um pequeno, num canto, dá profundidade). Comentários e notificações na frente funcionam bem, longe do rosto.
+- **Caos** (vários elementos se amontoando): `deriva` (px/s, ~25) faz cada card andar numa direção; `deriva_giro` (°/s, ~3) faz girar; `flutuar` 1.5+ deixa o balanço mais nervoso. Gere a lista com um script (tempos acelerando: `t = ini + (fim-ini)·(k/N)^0.6`, posições aleatórias fora do rosto). Exemplo em `exemplos/caos.py`.
+- **Some tudo**: `some_tudo` (segundo) faz todos os cards incharem e serem sugados juntos em `some_duracao` (0.2 s), com som de sugada; depois disso, nenhum efeito sonoro e a trilha corta seco. `voz_antes`/`voz_depois` controlam o áudio original antes e depois (ex.: 0.25 → 1.0, o silêncio do ambiente volta).
+- **Holograma**: `"holograma": true` (global ou por card): o conteúdo escuro do card acende em ciano, o branco vira vidro, com contorno aceso, linhas de varredura, aberração cromática, tremulação e glitch. Hologramas somam luz (sem sombra).
+- `opacidade` (global ou por card, ex.: 0.85): transparência leve nos elementos; deixa o cenário aparecer sem perder a leitura. Mais claro que o holograma.
 - Globais: `fundo` (`original` | `estudio` | caminho de imagem), `luzes` (`{"intensidade", "cores"}` ou `false`), `sombra` (0.16), `flutuar` (1 = balanço de rebote; 0 desliga), `duracao_entrada` (0.65 s), `focal` (1.3; menor = perspectiva mais forte), `cor: "rico"` (look rico e claro no final), `trilha` + `trilha_de` + `trilha_volume` (música que abaixa sob a voz).
 - Estúdio: `pessoa: {"escala": 0.8, "x": 0, "y": 120}` encolhe/move a pessoa para os posts aparecerem mais (como no tutorial); `estudio: {"cor_parede", "cor_chao"}`; `reflexo` (liga sozinho se os pés aparecem); `chao` (y do chão em px, se o automático errar).
+
+### Trilha de caos (opcional)
+Para "ansiedade/excesso" até um corte seco:
+```bash
+python3 -I scripts/trilha_caos.py --dur 13.6 -o trilha-caos.wav     # dur = some_tudo
+```
+Pulso acelerando, tique-taque, baixo dissonante, escala de Shepard e gaguejo no fim. No `projeto.json`: `"trilha": "trilha-caos.wav", "trilha_volume": 0.9`. Ideia de roteiro que funciona: começar já no meio da ação, o caos cresce, tudo some num gesto da pessoa (deitar a cabeça, largar a caneta) e o resto é silêncio. Se cortar o vídeo bruto em dois trechos, esconda o corte no meio do caos.
 
 ### 5. Conferir antes de renderizar
 ```bash
@@ -98,9 +116,10 @@ Confira o recorte sobre o vídeo todo (cabelo e mãos na frente dos cards, nada 
 
 | Sintoma | Causa | Correção |
 |---|---|---|
-| Card cobre cadeira/objeto mas some atrás da pessoa | o recorte só pega pessoas | mover o card, ou `"frente": true` |
+| Card cobre cadeira/objeto mas some atrás da pessoa | o recorte só pega pessoas | `mascara_objetos.py` (passo 2), ou mover o card |
 | Card "fura" a pessoa em alguns quadros | recorte falhou | revisar `mask/` sobre magenta, refazer só os quadros ruins |
 | Post mostra o trecho errado | `de` errado | o vídeo do post começa em `de` no momento em que o card entra |
 | Perspectiva exagerada ou chapada | `ry` ou `focal` | ry 20–30°, focal 1.1–1.6 |
 | Luz escurecendo/manchando | intensidade alta | `luzes.intensidade` 0.2–0.35 em fundo escuro, até 0.5 no estúdio branco |
+| Card parece sentado na cadeira | card sobre o assento (o recorte não pega a cadeira) | descer o card para o chão, com `"deriva": 0` para não subir |
 | Reflexo flutuando | chão errado | definir `"chao"` em px |

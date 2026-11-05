@@ -223,6 +223,135 @@ class Player:
         return im
 
 
+def quebra(d, txt, f, larg):
+    linhas, atual = [], ""
+    for p in txt.split():
+        prova = (atual + " " + p).strip()
+        if d.textlength(prova, font=f) <= larg or not atual:
+            atual = prova
+        else:
+            linhas.append(atual); atual = p
+    return linhas + ([atual] if atual else [])
+
+
+class Comentario:
+    """Balão de comentário de rede social: avatar, @usuário, texto, "Responder" e coração com curtidas."""
+
+    def __init__(self, larg, p):
+        self.w = larg; s = self.s = 3; u = larg * s
+        self.mw = self.mh = 1
+        pad = u * 0.06; av = u * 0.13
+        fu, ft, fp = fonte(round(u * 0.050), True), fonte(round(u * 0.058)), fonte(round(u * 0.042))
+        prov = ImageDraw.Draw(Image.new("RGB", (8, 8)))
+        linhas = quebra(prov, p.get("texto", "amei!"), ft, u - 2 * pad - av - u * 0.16)
+        lh = u * 0.075
+        H = int(pad * 2 + u * 0.065 + lh * len(linhas) + u * 0.075)
+        im = Image.new("RGBA", (u, H), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+        escuro = p.get("escuro", False)
+        bg, fg, cz = ((38, 38, 38), (245, 245, 245), (168, 168, 168)) if escuro else ((255, 255, 255), (20, 20, 20), (115, 115, 115))
+        d.rounded_rectangle([0, 0, u - 1, H - 1], u * 0.06, fill=bg + (255,))
+        cor = hexrgb(p.get("cor_avatar", ["#F58529", "#DD2A7B", "#8134AF", "#515BD4", "#1ED760", "#FFB800"][sum(map(ord, p.get("usuario", ""))) % 6]))
+        d.ellipse([pad, pad, pad + av, pad + av], fill=cor)
+        ini = p.get("usuario", "@a").lstrip("@")[:1].upper()
+        fi = fonte(round(av * 0.5), True)
+        d.text((pad + av / 2 - d.textlength(ini, font=fi) / 2, pad + av * 0.18), ini, font=fi, fill=(255, 255, 255))
+        x = pad + av + u * 0.04; y = pad
+        usuario = p.get("usuario", "@alguem").lstrip("@")
+        d.text((x, y), usuario, font=fu, fill=fg)
+        d.text((x + d.textlength(usuario + "  ", font=fu), y + u * 0.006), p.get("quando", "2 min"), font=fp, fill=cz)
+        y += u * 0.07
+        for l in linhas:
+            d.text((x, y), l, font=ft, fill=fg); y += lh
+        d.text((x, y + u * 0.01), "Responder", font=fp, fill=cz)
+        # coração (contorno) e curtidas
+        cx, cy, r = u - pad - u * 0.03, pad + u * 0.06, u * 0.018
+        lw = max(2, round(u * 0.006))
+        d.ellipse([cx - 2 * r, cy - 1.6 * r, cx, cy + 0.4 * r], outline=cz, width=lw)
+        d.ellipse([cx, cy - 1.6 * r, cx + 2 * r, cy + 0.4 * r], outline=cz, width=lw)
+        d.line([(cx - 1.9 * r, cy - 0.2 * r), (cx, cy + 1.9 * r), (cx + 1.9 * r, cy - 0.2 * r)], fill=cz, width=lw)
+        n = str(p.get("curtidas", ""))
+        if n:
+            d.text((cx - d.textlength(n, font=fp) / 2, cy + 2.4 * r), n, font=fp, fill=cz)
+        self.h = round(H / s)
+        self.img = im.resize((self.w, self.h), Image.LANCZOS)
+
+    def com(self, midia, t=0.0):
+        return self.img
+
+
+class Notificacao:
+    """Banner de notificação do celular: ícone do app, nome, "agora", título e texto."""
+
+    def __init__(self, larg, p):
+        self.w = larg; s = 3; u = larg * s
+        self.mw = self.mh = 1
+        pad = u * 0.045; ic = u * 0.12
+        fa, ft, fx = fonte(round(u * 0.036)), fonte(round(u * 0.046), True), fonte(round(u * 0.046))
+        prov = ImageDraw.Draw(Image.new("RGB", (8, 8)))
+        linhas = quebra(prov, p.get("texto", ""), fx, u - 2 * pad - ic - u * 0.04)[:2]
+        lh = u * 0.06
+        H = int(pad * 2 + u * 0.05 + lh * (1 + len(linhas)))
+        im = Image.new("RGBA", (u, H), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+        d.rounded_rectangle([0, 0, u - 1, H - 1], u * 0.055, fill=(246, 246, 248, 238))
+        c1 = hexrgb(p.get("cor_app", "#34C759"))
+        c2 = tuple(min(255, int(v * 0.75 + 70)) for v in c1)
+        icone = Image.new("RGBA", (int(ic), int(ic)))
+        di = ImageDraw.Draw(icone)
+        for i in range(int(ic)):  # degradê vertical no ícone
+            a = i / ic; di.line([(0, i), (ic, i)], fill=tuple(int(c2[k] * (1 - a) + c1[k] * a) for k in range(3)))
+        mk = Image.new("L", icone.size, 0); ImageDraw.Draw(mk).rounded_rectangle([0, 0, ic - 1, ic - 1], ic * 0.24, fill=255)
+        im.paste(icone, (int(pad), int(pad + u * 0.012)), mk)
+        g = p.get("simbolo", p.get("app", "?")[:1].upper()); fg_ = fonte(round(ic * 0.55), True)
+        d.text((pad + ic / 2 - d.textlength(g, font=fg_) / 2, pad + u * 0.012 + ic * 0.14), g, font=fg_, fill=(255, 255, 255))
+        x = pad + ic + u * 0.035; y = pad
+        d.text((x, y), p.get("app", "APP").upper(), font=fa, fill=(110, 110, 115))
+        q = p.get("quando", "agora"); d.text((u - pad - d.textlength(q, font=fa), y), q, font=fa, fill=(110, 110, 115))
+        y += u * 0.05
+        d.text((x, y), p.get("titulo", ""), font=ft, fill=(15, 15, 15)); y += lh
+        for l in linhas:
+            d.text((x, y), l, font=fx, fill=(40, 40, 40)); y += lh
+        self.h = round(H / s)
+        self.img = im.resize((self.w, self.h), Image.LANCZOS)
+
+    def com(self, midia, t=0.0):
+        return self.img
+
+
+class SemMidia:
+    def quadro(self):
+        return Image.new("RGB", (1, 1))
+
+    def fecha(self):
+        pass
+
+
+def holograma(img, x0, y0, t, k, cor=(110, 240, 255)):
+    """Transforma o cartão já entortado em holograma: tinta ciano, linhas de varredura,
+    aberração cromática, tremulação e uma faixa deslocada de vez em quando."""
+    a = np.asarray(img, float) / 255
+    rgb, al = a[..., :3], a[..., 3]
+    lum = rgb @ [0.3, 0.59, 0.11]
+    c = np.array(cor, float) / 255
+    luz = np.clip((1 - lum) * 1.35, 0, 1)[..., None]  # o que é escuro no cartão (texto, imagem) acende
+    out = np.clip(0.75 * c * (0.55 + 0.6 * luz) + 0.25 * rgb, 0, 1)
+    # contorno aceso: borda do alpha mais brilhante
+    from PIL import ImageFilter as _F
+    er = np.asarray(img.getchannel("A").filter(_F.MinFilter(5)), float) / 255
+    borda = np.clip(al - er, 0, 1)[..., None]
+    out = out * (1 - borda) + np.minimum(1, c * 1.25) * borda
+    out[..., 0] = np.roll(out[..., 0], 3, axis=1); out[..., 2] = np.roll(out[..., 2], -3, axis=1)
+    yy = (np.arange(al.shape[0]) + y0 + int(t * 40)) % 5
+    scan = np.where(yy[:, None] < 2, 0.55, 1.0)
+    rng = np.random.default_rng(int(t * 30) * 131 + k)
+    trem = 0.85 + 0.15 * rng.random() if rng.random() > 0.04 else 0.3
+    al = np.maximum(al * scan * (0.14 + 0.8 * luz[..., 0]), borda[..., 0] * 0.95) * trem
+    if rng.random() < 0.12:  # glitch: uma faixa escorrega pro lado
+        h = al.shape[0]; y1 = rng.integers(0, max(1, h - 8)); y2 = min(h, y1 + rng.integers(4, max(5, h // 6)))
+        dx = int(rng.integers(-18, 18))
+        out[y1:y2] = np.roll(out[y1:y2], dx, axis=1); al[y1:y2] = np.roll(al[y1:y2], dx, axis=1)
+    return Image.fromarray((np.dstack([np.clip(out, 0, 1), np.clip(al, 0, 1)[..., None]]) * 255).astype(np.uint8), "RGBA")
+
+
 def cobre(im, w, h, foco=(0.5, 0.5)):
     sw, sh = im.size
     k = max(w / sw, h / sh)
@@ -391,7 +520,7 @@ def gestos(masks, fps, n):
 SR = 48000
 
 
-def sfx(eventos, dur, seed=3):
+def sfx(eventos, dur, some=None, seed=3):
     rng = np.random.default_rng(seed)
     out = np.zeros(int(dur * SR) + SR)
 
@@ -407,9 +536,35 @@ def sfx(eventos, dur, seed=3):
         e = np.minimum(t / 0.002, 1) * np.exp(-t * 30)
         return 0.6 * np.sin(2 * np.pi * np.cumsum(f) / SR) * e
 
-    for k, (t, chega) in enumerate(eventos):
-        w = whoosh(); i = max(0, int((t - 0.05) * SR)); out[i:i + len(w)] += 0.5 * w[:len(out) - i]
-        p = pop([560, 470, 640, 420][k % 4]); i = int(chega * SR); out[i:i + len(p)] += 0.45 * p[:len(out) - i]
+    def ding(f0):  # notificação: dois toques de sino
+        n = int(0.5 * SR); t = np.arange(n) / SR; y = np.zeros(n)
+        for atraso, f in ((0, f0), (0.09, f0 * 1.335)):
+            tt = np.clip(t - atraso, 0, None); e = (t >= atraso) * np.exp(-tt * 9)
+            y += e * (np.sin(2 * np.pi * f * tt) + 0.3 * np.sin(2 * np.pi * 2.76 * f * tt))
+        return 0.35 * y
+
+    def blip(f0):  # comentário: bolha curta
+        n = int(0.09 * SR); t = np.arange(n) / SR; f = f0 * (1 + 0.8 * t / 0.09)
+        return 0.4 * np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 35)
+
+    def poe(som, t, g):
+        i = max(0, int(t * SR)); n = min(len(som), len(out) - i)
+        if n > 0: out[i:i + n] += g * som[:n]
+
+    for k, (t, chega, tipo) in enumerate(eventos):
+        if tipo == "notificacao":
+            poe(ding([1318, 1175, 1480, 1046][k % 4]), t + 0.05, 0.55)
+        elif tipo == "comentario":
+            poe(blip([700, 820, 900, 760][k % 4]), t + 0.03, 0.5)
+        else:
+            poe(whoosh(), t - 0.05, 0.5); poe(pop([560, 470, 640, 420][k % 4]), chega, 0.45)
+    if some is not None:  # sumiço: um "sugão" (ruído subindo e caindo de pitch), depois nada
+        n = int(0.35 * SR); t = np.arange(n) / SR
+        f = 900 * np.exp(-t * 9) + 50
+        corpo = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 6)
+        ar = np.convolve(rng.normal(0, 1, n), np.ones(6) / 6, "same") * np.exp(-t * 14)
+        i = int(some * SR); out[i:] = 0
+        poe(0.9 * corpo + 0.5 * ar, some, 0.8)
     out = out[:int(dur * SR)]
     pk = np.abs(out).max()
     return out / pk * 0.6 if pk > 0 else out
@@ -493,17 +648,34 @@ def main():
         y = p.get("y", slot[1] * H0) * esc if "y" in p else slot[1] * H
         larg = round(p.get("largura", slot[2] * W0) * esc) if "largura" in p else round(slot[2] * W)
         rot = p.get("rot", list(slot[3:]))
-        mold = Player(larg, p) if p.get("tipo") == "player" else Moldura(larg, mold_cfg)
+        tipo = p.get("tipo", "post")
+        if tipo == "player":
+            mold = Player(larg, p)
+        elif tipo == "comentario":
+            mold = Comentario(larg, p)
+        elif tipo == "notificacao":
+            mold = Notificacao(larg, p)
+        else:
+            mold = Moldura(larg, mold_cfg)
         foco = tuple(p.get("foco", (0.5, 0.5)))
-        media = Midia(rel(p["midia"]), mold.mw, mold.mh, fps, p.get("de", 0), p.get("velocidade", 1.0), foco)
+        media = (Midia(rel(p["midia"]), mold.mw, mold.mh, fps, p.get("de", 0), p.get("velocidade", 1.0), foco)
+                 if "midia" in p else SemMidia())
         t0 = p["entra"] if "entra" in p else auto[sem_tempo.index(k)]
         lado = 1 if x < W / 2 else -1
+        rng = np.random.default_rng(k * 977 + 5)
+        amp = p.get("deriva", cfg.get("deriva", 0)) * esc  # px/s: os cards andam pela tela (caos)
+        ang = rng.uniform(0, 2 * math.pi)
         cartoes.append(dict(m=mold, media=media, x=x, y=y, rot=rot, t0=t0, lado=lado, sai=p.get("sai"),
-                            anim=p.get("anim", cfg.get("anim", "flip")), fase=k * 1.37,
-                            frente=p.get("frente", False)))
+                            anim=p.get("anim", cfg.get("anim", "flip")), fase=k * 1.37, tipo=tipo, idx=k,
+                            frente=p.get("frente", False), holo=p.get("holograma", cfg.get("holograma", False)),
+                            opac=p.get("opacidade", cfg.get("opacidade", 1.0)),
+                            vx=amp * math.cos(ang) * rng.uniform(0.5, 1), vy=amp * math.sin(ang) * rng.uniform(0.5, 1),
+                            vr=p.get("deriva_giro", cfg.get("deriva_giro", 0)) * rng.uniform(-1, 1)))
     cartoes.sort(key=lambda c: c["t0"])  # quem entra depois fica por cima
     anim_dur = cfg.get("duracao_entrada", 0.65)
     flutua = cfg.get("flutuar", 1.0)
+    some = cfg.get("some_tudo")  # segundo em que todos os cards somem juntos
+    some_dur = cfg.get("some_duracao", 0.2)
 
     def pose(c, t):
         """Ângulos/escala/posição do cartão no tempo t; None se ainda não entrou."""
@@ -527,15 +699,22 @@ def main():
             w = 2 * math.pi * t / 4.5 + c["fase"]
             ry += 3.0 * flutua * math.sin(w); rx += 2.0 * flutua * math.sin(w * 0.8 + 1)
             rz += 0.8 * flutua * math.sin(w * 0.6 + 2); y += 6 * esc * flutua * math.sin(w * 0.9)
+        x += c["vx"] * dt; y += c["vy"] * dt; rz += c["vr"] * dt
         if c["sai"] is not None and t > c["sai"]:
             q = (t - c["sai"]) / 0.35
             if q >= 1: return None
             s *= 1 - saida(q) * 0.8; op *= 1 - q
+        if some is not None and t >= some:  # tudo some de uma vez: incha um tico e é sugado
+            q = (t - some) / some_dur
+            if q >= 1: return None
+            s *= (1 + 0.12 * math.sin(math.pi * min(q * 2, 1))) * (1 - q ** 1.5)
+            op *= 1 - q ** 2
         return rx, ry, rz, x, y, s, op, dz
 
     def camada_posts(t, avanca=True, quais=None):
         lay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
         sombra = Image.new("L", (W, H), 0)
+        luz = Image.new("RGBA", (W, H), (0, 0, 0, 0))  # hologramas: somam luz em vez de cobrir
         for c in cartoes:
             fr = c["media"].quadro() if avanca and (t >= c["t0"] or c.get("ult") is None) else None
             if fr is not None: c["ult"] = fr
@@ -545,6 +724,7 @@ def main():
             if ps is None or c.get("ult") is None:
                 continue
             rx, ry, rz, x, y, s, op, dz = ps
+            op *= c["opac"]
             card = c["m"].com(c["ult"], t)
             q = quad3d(card.width, card.height, x, y, rx, ry, rz, s, f, W, H, dz)
             img, x0, y0 = gira(card, q, W, H)
@@ -552,14 +732,29 @@ def main():
                 continue
             if op < 1:
                 a = img.getchannel("A").point(lambda v: int(v * op)); img.putalpha(a)
+            if c["holo"]:
+                img = holograma(img, x0, y0, t, c["idx"])
+                luz.alpha_composite(img, (x0, y0))
+                continue
             sa = img.getchannel("A")
             off = round(22 * esc)
             sombra.paste(sa, (x0 + off, y0 + round(off * 1.4)), sa)
             lay.alpha_composite(img, (x0, y0))
+        lay.luz = luz
         return lay, sombra
 
+    def soma_holo(out, luz):
+        """Hologramas em modo tela (screen) + um brilho ciano em volta."""
+        la = np.asarray(luz, float) / 255
+        if not la[..., 3].any():
+            return out
+        glow = luz.resize((W // 6, H // 6), Image.BILINEAR).filter(ImageFilter.GaussianBlur(5)).resize((W, H), Image.BILINEAR)
+        ga = np.asarray(glow, float) / 255
+        out = 1 - (1 - out) * (1 - ga[..., :3] * ga[..., 3:] * 0.28)
+        return 1 - (1 - out) * (1 - la[..., :3] * la[..., 3:])
+
     # som
-    eventos = [(c["t0"], c["t0"] + anim_dur * 0.55) for c in cartoes if c["t0"] < dur]
+    eventos = [(c["t0"], c["t0"] + anim_dur * 0.55, c["tipo"]) for c in cartoes if c["t0"] < dur and (some is None or c["t0"] < some)]
     pasta = os.path.splitext(rel(cfg.get("saida", "posts-3d.mp4")))[0]
 
     # ------------------------------------------------ quadro a quadro
@@ -602,6 +797,7 @@ def main():
             fundo = fundo * (1 - sa)
         la = np.asarray(lay, float) / 255
         fundo = fundo * (1 - la[..., 3:]) + la[..., :3] * la[..., 3:]
+        fundo = soma_holo(fundo, lay.luz)
 
         if luzes is not None:
             cor, a = luzes.mapa(t)
@@ -616,7 +812,9 @@ def main():
         if fa[..., 3].any():
             out = out * (1 - fa[..., 3:]) + fa[..., :3] * fa[..., 3:]
             lay.alpha_composite(frente)
-        return (np.clip(out, 0, 1) * 255).astype(np.uint8), lay
+        out = soma_holo(out, frente.luz)
+        saida_lay = lay.copy(); saida_lay.alpha_composite(lay.luz); saida_lay.alpha_composite(frente.luz)
+        return (np.clip(out, 0, 1) * 255).astype(np.uint8), saida_lay
 
     dec = subprocess.Popen(["ffmpeg", "-v", "error", "-i", base, "-f", "rawvideo", "-pix_fmt", "rgb24", "-"],
                            stdout=subprocess.PIPE)
@@ -666,25 +864,30 @@ def main():
     dec.kill(); [c["media"].fecha() for c in cartoes]
 
     # som: voz original + whoosh/pop em cada entrada (+ trilha opcional)
-    efeitos = sfx(eventos, total / fps)
+    efeitos = sfx(eventos, total / fps, some)
     wav = pasta + "-sfx.wav"
     with wave.open(wav, "wb") as w:
         w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR)
         w.writeframes((efeitos * 32767).astype(np.int16).tobytes())
     final = rel(cfg.get("saida", "posts-3d.mp4"))
     ent = ["-i", tmp, "-i", wav]; mix = []; n = 1
-    if tem_audio(base):
-        ent += ["-i", base]; n += 1; mix.append(f"[{n}:a]volume=1.0[v]")
+    voz = tem_audio(base)
+    if voz:  # voz original; com some_tudo dá para calar antes e voltar no silêncio
+        va, vd = cfg.get("voz_antes", 1.0), cfg.get("voz_depois", 1.0)
+        ent += ["-i", base]; n += 1
+        vol = f"if(lt(t,{some}),{va},{vd})" if some is not None else str(va)
+        mix.append(f"[{n}:a]volume='{vol}':eval=frame[v]")
     trilha = cfg.get("trilha")
     if trilha:
         ent += ["-ss", str(cfg.get("trilha_de", 0)), "-i", rel(trilha)]; n += 1
         vol = cfg.get("trilha_volume", 0.25)
-        if tem_audio(base):  # trilha abaixa quando a pessoa fala
-            mix = [f"[2:a]asplit=2[v][sc]", f"[{n}:a]volume={vol}[tr]",
+        corte = f",atrim=0:{some},afade=t=out:st={max(0, some - 0.02)}:d=0.02" if some is not None else ""
+        if voz and some is None and cfg.get("trilha_abaixa", True):  # trilha abaixa quando a pessoa fala
+            mix = [mix[0].replace("[v]", "[vv]"), "[vv]asplit=2[v][sc]", f"[{n}:a]volume={vol}[tr]",
                    "[tr][sc]sidechaincompress=threshold=0.03:ratio=6:attack=20:release=400[trd]"]
         else:
-            mix.append(f"[{n}:a]volume={vol}[trd]")
-    labels = ["[1:a]"] + (["[v]"] if tem_audio(base) else []) + (["[trd]"] if trilha else [])
+            mix.append(f"[{n}:a]volume={vol}{corte}[trd]")
+    labels = ["[1:a]"] + (["[v]"] if voz else []) + (["[trd]"] if trilha else [])
     filtro = ";".join(mix + [f"{''.join(labels)}amix=inputs={len(labels)}:normalize=0:duration=first[a]"])
     cor = cfg.get("cor")
     vf = []

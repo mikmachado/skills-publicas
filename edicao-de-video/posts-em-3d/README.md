@@ -2,6 +2,8 @@
 
 Skill do Claude Code que coloca posts de Instagram (com fotos e vídeos tocando dentro) e telas de player de música flutuando em 3D atrás de você no vídeo. Cada card entra girando, assenta com rebote, balança de leve, faz sombra e recebe luzes coloridas, com som de whoosh e pop.
 
+Também faz comentários e notificações de celular, a variação "caos" (tudo se amontoa e some de uma vez, com trilha e silêncio) e recorta a cadeira junto com você, para os posts não passarem entre vocês.
+
 Substitui o caminho Canva → Alight Motion (3D Flip) → CapCut por um comando só.
 
 ## Como usar

@@ -9,7 +9,7 @@ Uma **skill** é uma pasta com instruções (`SKILL.md`) e, às vezes, scripts q
 | Categoria | Skill | O que faz |
 | --- | --- | --- |
 | Edição de vídeo | [texto-em-perspectiva](edicao-de-video/texto-em-perspectiva/) | Cola legenda, posts e prints numa parede real do vídeo, em perspectiva, com você passando na frente. Faz também os cortes, a cor e o som. [Guia com imagens](edicao-de-video/texto-em-perspectiva/guia/README.md) |
-| Edição de vídeo | [posts-em-3d](edicao-de-video/posts-em-3d/) | Posts de Instagram e telas de música flutuando em 3D atrás de você, entrando com giro e rebote, com sombra, luzes e som. |
+| Edição de vídeo | [posts-em-3d](edicao-de-video/posts-em-3d/) | Posts de Instagram, telas de música, comentários e notificações flutuando em 3D atrás de você, com giro, rebote, sombra e som. Inclui a variação "caos", que some de uma vez. |
 
 ## Como instalar uma skill
 
