@@ -1,0 +1,21 @@
+{
+  "base": "base.mp4",
+  "mascara": "mask",
+  "saida": "posts-3d.mp4",
+  "fundo": "original",
+  "luzes": {"intensidade": 0.28},
+  "sombra": 0.22,
+  "posts": [
+    {"midia": "midia/meu-reel.mp4", "de": 0.3, "entra": 2.6, "x": 230, "y": 330, "largura": 360, "rot": [4, 24, -5]},
+    {"tipo": "player", "midia": "midia/capa1.jpg", "musica": "Dancing Queen", "artista": "ABBA", "duracao": 231, "pos": 48,
+     "entra": 3.4, "x": 845, "y": 330, "largura": 330, "rot": [4, -22, 4]},
+    {"midia": "midia/meu-reel.mp4", "de": 33.0, "entra": 4.2, "x": 200, "y": 830, "largura": 320, "rot": [0, 28, 3]},
+    {"midia": "midia/outro-reel.mp4", "de": 2.0, "entra": 5.0, "x": 935, "y": 800, "largura": 290, "rot": [0, -30, -3]},
+    {"tipo": "player", "midia": "midia/capa2.jpg", "musica": "Wake Me Up Before You Go-Go", "artista": "Wham!", "duracao": 231, "pos": 12,
+     "entra": 5.8, "x": 545, "y": 170, "largura": 250, "rot": [12, 0, 2]},
+    {"midia": "midia/meu-reel.mp4", "de": 38.0, "entra": 6.6, "x": 150, "y": 1240, "largura": 260, "rot": [-4, 26, -6]},
+    {"midia": "midia/meu-reel.mp4", "de": 44.0, "entra": 7.4, "x": 430, "y": 560, "largura": 220, "rot": [6, 14, -4]},
+    {"tipo": "player", "midia": "midia/capa3.jpg", "musica": "Here Comes the Sun", "artista": "The Beatles", "duracao": 185, "pos": 70,
+     "entra": 8.2, "x": 930, "y": 1560, "largura": 250, "rot": [-8, -24, 6], "frente": true}
+  ]
+}
