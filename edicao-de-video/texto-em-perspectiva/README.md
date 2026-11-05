@@ -4,7 +4,7 @@ Você grava um vídeo falando na frente de uma parede, e a legenda aparece **pin
 
 O efeito costuma levar três apps (CapCut, Alight Motion e Canva) e uma inserção por vez. Com esta skill, o Claude faz tudo a partir do seu vídeo: transcreve, mede a parede, desenha a legenda inteira com fontes misturadas, cola em perspectiva, corta as pausas, alterna zooms, ajusta a cor e coloca música e efeitos.
 
-Mostrei o resultado no Instagram [@mik_machado](https://www.instagram.com/mik_machado/).
+Mostrei o resultado no Instagram [@mik_machado](https://www.instagram.com/mik_machado/). **Guia completo com imagens, prompts prontos e erros comuns: [guia/](guia/README.md).**
 
 ## O que você precisa
 
@@ -53,3 +53,4 @@ O Claude vai te mostrar a transcrição (corrija nomes próprios), a parede marc
 | `scripts/cortes.py` | Cortes, zooms, cor, música e efeitos |
 | `scripts/cartao.py` | Gera um cartão de texto avulso (estilo do tutorial clássico) |
 | `exemplos/projeto.json` | Exemplo de configuração da parede e das telas |
+| `guia/` | Guia passo a passo com imagens do processo |

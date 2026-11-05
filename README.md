@@ -8,7 +8,7 @@ Uma **skill** é uma pasta com instruções (`SKILL.md`) e, às vezes, scripts q
 
 | Categoria | Skill | O que faz |
 | --- | --- | --- |
-| Edição de vídeo | [texto-em-perspectiva](edicao-de-video/texto-em-perspectiva/) | Cola legenda, posts e prints numa parede real do vídeo, em perspectiva, com você passando na frente. Faz também os cortes, a cor e o som. |
+| Edição de vídeo | [texto-em-perspectiva](edicao-de-video/texto-em-perspectiva/) | Cola legenda, posts e prints numa parede real do vídeo, em perspectiva, com você passando na frente. Faz também os cortes, a cor e o som. [Guia com imagens](edicao-de-video/texto-em-perspectiva/guia/README.md) |
 
 ## Como instalar uma skill
 
