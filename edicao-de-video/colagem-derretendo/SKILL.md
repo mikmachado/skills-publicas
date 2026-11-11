@@ -5,7 +5,7 @@ description: Edita um vídeo falado (Reels/TikTok 9:16) no estilo colagem editor
 
 # Colagem derretendo
 
-A pessoa vira um busto recortado sobre papel bege, com a borda de baixo derretendo em tinta preta brilhante (escorridos com bulbo, brilho e pingos caindo). Por cima, uma colagem editorial presa às palavras da fala. Tudo sai de um `roteiro.json` e dois comandos, em Python + ffmpeg, sem app de edição.
+A pessoa vira um busto recortado sobre papel bege, com a borda de baixo derretendo: a própria imagem (cabelo, roupa, mãos) cede e escorre para dentro de cada pingo, escurecendo até virar tinta preta brilhante, com bulbo, brilho e pingos caindo. Por cima, uma colagem editorial presa às palavras da fala. Tudo sai de um `roteiro.json` e dois comandos, em Python + ffmpeg, sem app de edição.
 
 Requisitos: macOS (o recorte e os olhos usam o Vision do Mac), `ffmpeg`, Python 3 com `pillow numpy faster-whisper`. Rode sempre com `python3 -I`.
 

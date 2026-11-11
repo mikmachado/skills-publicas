@@ -48,12 +48,42 @@ class Tinta:
         cols = np.flatnonzero(ok)
         xa, xb = cols.min(), cols.max()
         bb = np.where(ok, b, 0)
-        # 1) escurece a parte de baixo do busto (vira tinta)
-        D = 150 * self.e * min(1, cresce * 1.2)
+        e = self.e
+        cr = min(1.0, cresce)
+        xs_i = np.arange(W)[None, :]
+        # 1) a parte de baixo do busto cede: a imagem escorrega para baixo e vai escurecendo
+        # cada escorrido puxa a imagem para baixo em volta dele
+        xw = np.arange(W, dtype=np.float32)
+        puxa = np.full(W, 18 * e * cr, np.float32)
+        self._gx = []
+        for g in self.gotas:
+            x = xa + g["u"] * (xb - xa)
+            prog = float(np.clip((cresce - g["atraso"]) / (1 - g["atraso"] + 1e-6), 0, None))
+            self._gx.append((x, prog))
+            puxa += 85 * e * min(prog, 1.3) * np.exp(-((xw - x) / (g["w"] * 1.1)) ** 2) * (0.85 + 0.15 * np.sin(t * 1.1 + g["ph"]))
+        D = 260 * e * cr + 1
         yy = np.arange(H, dtype=np.float32)[:, None]
-        k = np.clip((yy - (bb[None, :] - D)) / max(D, 1), 0, 1) ** 1.4 * ok[None, :]
-        k = k * 0.92
-        out_rgb[:H] = rgb * (1 - k[..., None]) + TINTA * k[..., None]
+        rel = np.clip((yy - (bb[None, :] - D)) / D, 0, 1) * ok[None, :]
+        onda = 1 + 0.25 * np.sin(xw[None, :] / 37 + t * 1.3)
+        sag = puxa[None, :] * rel ** 2.2 * onda
+        # fora do recorte vira tinta (não estica o fundo), e a amostra é interpolada entre linhas (sem listras)
+        limpo = rgb * al[..., None] + TINTA * (1 - al[..., None])
+        yf = np.clip(yy - sag, 0, H - 1.001); y0i = yf.astype(np.int32); fr = (yf - y0i)[..., None]
+        cedido = limpo[y0i, xs_i] * (1 - fr) + limpo[y0i + 1, xs_i] * fr
+        k = (rel ** 2.2 * 0.38)[..., None]
+        out_rgb[:H] = cedido * (1 - k) + TINTA * k
+        # cor dos escorridos: a própria imagem esticada para baixo (fios do cabelo e roupa continuam
+        # dentro da tinta) e escurecendo até virar tinta preta perto das pontas
+        y0r = int(max(0, np.nanmin(b) - 40))
+        Yr = np.arange(y0r, H_out, dtype=np.float32)[:, None]
+        d = np.clip(Yr - bb[None, :], 0, None)
+        Dm, Sm = (60 * e + puxa * 0.9)[None, :], 190 * e
+        yf2 = np.clip(bb[None, :] - Dm * (1 - np.exp(-d / Sm)) - 1, 0, H - 1.001); y2i = yf2.astype(np.int32); f2 = (yf2 - y2i)[..., None]
+        base = out_rgb[:H] * al[..., None] + TINTA * (1 - al[..., None])
+        esticado = base[y2i, xs_i] * (1 - f2) + base[y2i + 1, xs_i] * f2
+        m = np.clip(0.38 + 0.6 * np.clip(d / (300 * e), 0, 1) ** 0.9, 0, 0.98)[..., None]
+        cor_escorre = np.empty((H_out, W, 3), np.float32); cor_escorre[:] = TINTA
+        cor_escorre[y0r:] = esticado * (1 - m) + TINTA * m
         # 2) borda líquida + escorridos (forma)
         ink = np.zeros((H_out, W), np.float32)
         hl = np.zeros((H_out, W), np.float32)
@@ -91,7 +121,7 @@ class Tinta:
             ink[sl] = np.maximum(ink[sl], sh[:, cx0:cx1])
             # brilho: faixa à esquerda + ponto no bulbo
             fx = x - w * 0.22
-            faixa = np.clip(w * 0.09 - np.abs(XX - fx), 0, 1) * np.clip((dy - 12) / 30, 0, 1) * (dy < L - r) * (0.55 + 0.35 * np.sin(dy / 23 + g['ph']) ** 2)
+            faixa = np.clip(w * 0.09 - np.abs(XX - fx), 0, 1) * np.clip((dy + 8) / 40, 0, 1) * (dy < L - r) * (0.5 + 0.35 * np.sin(dy / 23 + g['ph']) ** 2)
             faixa = np.maximum(faixa, np.clip(w * 0.05 - np.abs(XX - (x + w * 0.3)), 0, 1) * (dy > 20) * (dy < L - r) * 0.22)
             ponto = np.clip(r * 0.22 - np.sqrt((XX - (x - r * 0.3)) ** 2 + (YY - (cy - r * 0.35)) ** 2), 0, 1) * 0.9
             hl[sl] = np.maximum(hl[sl], np.maximum(faixa, ponto)[:, cx0:cx1])
@@ -119,8 +149,8 @@ class Tinta:
         ink = np.clip((np.asarray(im).astype(np.float32) / 255 - 0.5) * 3 + 0.5, 0, 1)
         hl = np.asarray(Image.fromarray((hl * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(1.6))).astype(np.float32) / 255
         hl = hl * ink
-        # borda clara à direita (reflexo do ambiente)
-        cor = TINTA + hl[..., None] * (np.array([0.95, 0.95, 0.97]) - TINTA)
+        # brilho por cima da cor que escorre
+        cor = cor_escorre + hl[..., None] * (np.array([0.95, 0.95, 0.97], np.float32) - cor_escorre)
         nova = ink * (1 - out_al)
         out_rgb = out_rgb * out_al[..., None] + cor * nova[..., None]
         a2 = np.clip(out_al + nova, 0, 1)
