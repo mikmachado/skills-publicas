@@ -11,8 +11,11 @@ def suaviza1d(v, k):
 
 
 class Tinta:
-    def __init__(self, escala=1.0, seed=7, n=13, comprimento=1.0):
-        """escala: tamanho da pessoa na gravação (1 = rosto com ~590 px de largura num quadro 1080x1920)."""
+    def __init__(self, escala=1.0, seed=7, n=13, comprimento=1.0, modo="atras"):
+        """escala: tamanho da pessoa na gravação (1 = rosto com ~590 px de largura num quadro 1080x1920).
+        modo "atras": os pingos ficam atrás da pessoa e saem por baixo dela (o começo de cada pingo fica escondido).
+        modo "escorre": a própria imagem cede e escorre para dentro de cada pingo."""
+        self.modo = modo
         rng = np.random.default_rng(seed)
         us = np.linspace(0.04, 0.96, n) + rng.uniform(-0.015, 0.015, n)
         self.e = escala
@@ -39,6 +42,7 @@ class Tinta:
 
     def aplica(self, rgb, al, t, cresce=1.0, H_out=2700):
         """rgb HxWx3 float, al HxW -> (rgb2, al2) com altura H_out e a tinta."""
+        if self.modo == "atras": return self.atras(rgb, al, t, cresce, H_out)
         H, W = al.shape
         b = self.perfil(al)
         out_rgb = np.zeros((H_out, W, 3), np.float32); out_al = np.zeros((H_out, W), np.float32)
@@ -152,6 +156,71 @@ class Tinta:
         # brilho por cima da cor que escorre
         cor = cor_escorre + hl[..., None] * (np.array([0.95, 0.95, 0.97], np.float32) - cor_escorre)
         nova = ink * (1 - out_al)
+        out_rgb = out_rgb * out_al[..., None] + cor * nova[..., None]
+        a2 = np.clip(out_al + nova, 0, 1)
+        out_rgb = out_rgb / np.maximum(a2, 1e-4)[..., None]
+        return out_rgb, a2, ink
+
+    def atras(self, rgb, al, t, cresce=1.0, H_out=2700):
+        """Pingos atrás da pessoa: começam escondidos dentro do busto e só aparecem saindo por baixo dele."""
+        H, W = al.shape
+        b = self.perfil(al)
+        out_rgb = np.zeros((H_out, W, 3), np.float32); out_al = np.zeros((H_out, W), np.float32)
+        out_rgb[:H] = rgb; out_al[:H] = al
+        ok = ~np.isnan(b)
+        if ok.sum() < 10 or cresce <= 0.001: return out_rgb, out_al, np.zeros((H_out, W), np.float32)
+        cols = np.flatnonzero(ok); xa, xb = cols.min(), cols.max()
+        bb = np.where(ok, b, np.inf)
+        e = self.e
+        ink = np.zeros((H_out, W), np.float32); hl = np.zeros((H_out, W), np.float32)
+        for g in self.gotas:
+            x = xa + g["u"] * (xb - xa); w = g["w"]; r = w * 0.66
+            c0, c1 = int(max(0, x - w * 0.8)), int(min(W, x + w * 0.8 + 1))
+            fundo_local = bb[c0:c1]
+            if not np.isfinite(fundo_local).all(): continue
+            ytopo = float(fundo_local.min()) - 40 * e          # começa escondido atrás do busto
+            ysai = float(fundo_local.max())                     # onde passa a aparecer
+            prog = np.clip((cresce - g["atraso"]) / (1 - g["atraso"] + 1e-6), 0, None)
+            L = g["L"] * prog ** 0.8 * (0.9 + 0.1 * np.sin(t * g["vel"] + g["ph"]))
+            yfim = ysai + L
+            if yfim - ytopo < 4: continue
+            x0_, x1_ = int(x - w * 1.2), int(x + w * 1.2) + 1
+            ya, yb_ = int(ytopo), int(min(H_out - 1, yfim + r * 1.2)) + 1
+            YY = np.arange(ya, yb_, dtype=np.float32)[:, None]; XX = np.arange(x0_, x1_, dtype=np.float32)[None, :]
+            dy = YY - ysai
+            hw = w / 2 * (0.82 + 0.18 * np.clip(1 - dy / (L + 1), 0, 1)) * (1 + 0.1 * np.sin(dy / 47 + g["ph"] + t * 0.6))
+            corpo = np.clip(hw - np.abs(XX - x) + 0.5, 0, 1) * (YY <= yfim - r * 0.4)
+            cy = yfim - r * 0.2
+            bulbo = np.clip(r - np.sqrt((XX - x) ** 2 + (YY - cy) ** 2) + 0.5, 0, 1) * (L > r * 0.6)
+            sh = np.maximum(corpo, bulbo)
+            sl = (slice(ya, yb_), slice(max(0, x0_), min(W, x1_))); cx0 = max(0, x0_) - x0_; cx1 = cx0 + (sl[1].stop - sl[1].start)
+            ink[sl] = np.maximum(ink[sl], sh[:, cx0:cx1])
+            fx = x - w * 0.22
+            faixa = np.clip(w * 0.09 - np.abs(XX - fx), 0, 1) * (YY < yfim - r) * (0.5 + 0.35 * np.sin(dy / 23 + g["ph"]) ** 2)
+            faixa = np.maximum(faixa, np.clip(w * 0.05 - np.abs(XX - (x + w * 0.3)), 0, 1) * (YY < yfim - r) * 0.22)
+            ponto = np.clip(r * 0.22 - np.sqrt((XX - (x - r * 0.3)) ** 2 + (YY - (cy - r * 0.35)) ** 2), 0, 1) * 0.9 * (L > r * 0.6)
+            hl[sl] = np.maximum(hl[sl], np.maximum(faixa, ponto)[:, cx0:cx1])
+            per = g["pinga"]; ph = ((t + g["fase_p"]) % per) / per
+            if prog > 0.6 and ph < 0.45 and L > r:
+                q = ph / 0.45; py = cy + r + 20 + 900 * e * q ** 2; pr = r * 0.55
+                if py < H_out - 5:
+                    a0, a1 = int(py - pr - 2), int(min(H_out, py + pr * 1.4 + 2))
+                    YY2 = np.arange(a0, a1, dtype=np.float32)[:, None]
+                    xl, xr = int(max(0, x - pr - 2)), int(min(W, x + pr + 3))
+                    XX2 = np.arange(xl, xr, dtype=np.float32)[None, :]
+                    ee = np.sqrt(((XX2 - x) / pr) ** 2 + ((YY2 - py) / (pr * 1.25)) ** 2)
+                    ink[a0:a1, xl:xr] = np.maximum(ink[a0:a1, xl:xr], np.clip((1 - ee) * pr + 0.5, 0, 1) * (1 - max(0, q - 0.8) / 0.2))
+                    hp = np.clip(pr * 0.3 - np.sqrt((XX2 - (x - pr * 0.35)) ** 2 + (YY2 - (py - pr * 0.4)) ** 2), 0, 1)
+                    hl[a0:a1, xl:xr] = np.maximum(hl[a0:a1, xl:xr], hp * 0.9)
+        im = Image.fromarray((ink * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(2.2))
+        ink = np.clip((np.asarray(im).astype(np.float32) / 255 - 0.5) * 3 + 0.5, 0, 1)
+        hl = np.asarray(Image.fromarray((hl * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(1.6))).astype(np.float32) / 255
+        # sombra do busto sobre os pingos: o brilho só aparece um pouco abaixo da borda
+        Y = np.arange(H_out, dtype=np.float32)[:, None]
+        hl = hl * ink * np.clip((Y - np.where(ok, b, 0)[None, :] - 6 * e) / (30 * e), 0, 1)
+        cor = TINTA + hl[..., None] * (np.array([0.95, 0.95, 0.97], np.float32) - TINTA)
+        sombra = np.clip(1 - (Y - np.where(ok, b, 0)[None, :]) / (22 * e), 0, 1) * 0.0
+        nova = ink * (1 - out_al)                              # atrás da pessoa
         out_rgb = out_rgb * out_al[..., None] + cor * nova[..., None]
         a2 = np.clip(out_al + nova, 0, 1)
         out_rgb = out_rgb / np.maximum(a2, 1e-4)[..., None]

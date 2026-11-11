@@ -5,7 +5,7 @@ description: Edita um vídeo falado (Reels/TikTok 9:16) no estilo colagem editor
 
 # Colagem derretendo
 
-A pessoa vira um busto recortado sobre papel bege, com a borda de baixo derretendo: a própria imagem (cabelo, roupa, mãos) cede e escorre para dentro de cada pingo, escurecendo até virar tinta preta brilhante, com bulbo, brilho e pingos caindo. Por cima, uma colagem editorial presa às palavras da fala. Tudo sai de um `roteiro.json` e dois comandos, em Python + ffmpeg, sem app de edição.
+A pessoa vira um busto recortado sobre papel bege, com tinta preta brilhante escorrendo por baixo dele: os pingos ficam atrás da pessoa, começam escondidos dentro do busto e só aparecem saindo pela borda de baixo (escorridos com bulbo, brilho e pingos caindo). Por cima, uma colagem editorial presa às palavras da fala. Tudo sai de um `roteiro.json` e dois comandos, em Python + ffmpeg, sem app de edição.
 
 Requisitos: macOS (o recorte e os olhos usam o Vision do Mac), `ffmpeg`, Python 3 com `pillow numpy faster-whisper`. Rode sempre com `python3 -I`.
 
@@ -88,7 +88,7 @@ Kit de `adesivos` (`itens`): `"camera"`, `"play"`, `"musica"`, `"chat"`, `"email
 
 ## Opções globais do roteiro
 
-`saida` ("final.mp4"), `fundo` ("#F6F0E6", o bege), `acento` ("#1F3DC7", o azul da grade e das palavras), `tamanho` (1.0 = rosto com ~440 px de largura na tela; o corpo nunca passa de ~900 px), `rosto_y` (0.28 = topo do rosto na tela), `busto` (0.95 = onde o corpo é cortado, em alturas de rosto abaixo do queixo; aumente para mostrar mais ombro), `tinta_inicio` (3.2 s até a tinta escorrer toda; 0 = já começa escorrida), `tinta_fim` (true = escorre mais no último 1,8 s), `tinta_comprimento` (1.0), `grade` (true), `saturacao` (1.18), `aproxima_no_fim` (true), `sfx_volume` (1.0), `trilha` (arquivo de música) + `trilha_volume` (0.18; abaixa sozinha quando a pessoa fala), `forcar_lentes`, `processos`.
+`saida` ("final.mp4"), `fundo` ("#F6F0E6", o bege), `acento` ("#1F3DC7", o azul da grade e das palavras), `tamanho` (1.0 = rosto com ~440 px de largura na tela; o corpo nunca passa de ~900 px), `rosto_y` (0.28 = topo do rosto na tela), `busto` (0.95 = onde o corpo é cortado, em alturas de rosto abaixo do queixo; aumente para mostrar mais ombro), `tinta_modo` ("atras" = pingos saem de trás do busto, padrão; "escorre" = a própria imagem cede e escorre para dentro de cada pingo), `tinta_inicio` (3.2 s até a tinta escorrer toda; 0 = já começa escorrida), `tinta_fim` (true = escorre mais no último 1,8 s), `tinta_comprimento` (1.0), `grade` (true), `saturacao` (1.18), `aproxima_no_fim` (true), `sfx_volume` (1.0), `trilha` (arquivo de música) + `trilha_volume` (0.18; abaixa sozinha quando a pessoa fala), `forcar_lentes`, `processos`.
 
 ## Regras que deixam bonito (aprendidas no vídeo de demonstração)
 

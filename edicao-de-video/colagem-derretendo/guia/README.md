@@ -48,7 +48,7 @@ O Claude converte para 9:16, recorta você do fundo (pelo verde ou pelo recorte 
 #### 02 · Tinta preta derretendo
 > Coloca o fundo bege claro e faz a parte de baixo do meu busto derreter em tinta preta brilhante, começando nos primeiros 3 segundos e escorrendo mais no final.
 
-O corpo é cortado logo abaixo do queixo, numa linha ondulada. A parte de baixo da imagem cede e escorre: o cabelo e a roupa descem para dentro de cada pingo e vão escurecendo até virar tinta preta brilhante, com bulbos e pingos caindo. Mais ombro: *"corta o busto mais embaixo"*. Menos tinta: *"escorridos mais curtos"*.
+O corpo é cortado logo abaixo do queixo, numa linha ondulada, e a tinta escorre por trás do busto: o começo de cada pingo fica escondido atrás de você, então parece que a tinta sai de dentro da imagem, com bulbos, brilho e pingos caindo. Quer que o cabelo e a roupa escorram junto? Peça *"faz a minha imagem escorrer para dentro dos pingos"*. Mais ombro: *"corta o busto mais embaixo"*. Menos tinta: *"escorridos mais curtos"*.
 
 ![](imagens/02-tinta.jpg)
 

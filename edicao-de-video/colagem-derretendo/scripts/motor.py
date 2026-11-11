@@ -127,7 +127,7 @@ if "--trecho" not in args and any(it.get("tipo") == "lentes" for it in ROT.get("
     print("aviso: não achei óculos escuros no vídeo; os efeitos de lentes serão ignorados (\"forcar_lentes\": true para usar mesmo assim)")
 FCX, FTOP = INFO.get("rosto_centro_x", 540), INFO.get("rosto_topo", 600)
 TOPO = ROT.get("rosto_y", 0.28) * H                  # onde fica o topo do rosto na tela
-TINTA = Tinta(escala=FW / 590, comprimento=ROT.get("tinta_comprimento", 1.0), seed=ROT.get("semente", 7))
+TINTA = Tinta(escala=FW / 590, comprimento=ROT.get("tinta_comprimento", 1.0), seed=ROT.get("semente", 7), modo=ROT.get("tinta_modo", "atras"))
 H_OUT = 1920 + int(720 * FW / 590 * ROT.get("tinta_comprimento", 1.0))
 
 
