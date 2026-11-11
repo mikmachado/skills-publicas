@@ -11,6 +11,7 @@ Uma **skill** é uma pasta com instruções (`SKILL.md`) e, às vezes, scripts q
 | Edição de vídeo | [texto-em-perspectiva](edicao-de-video/texto-em-perspectiva/) | Cola legenda, posts e prints numa parede real do vídeo, em perspectiva, com você passando na frente. Faz também os cortes, a cor e o som. [Guia com imagens](edicao-de-video/texto-em-perspectiva/guia/README.md) |
 | Edição de vídeo | [posts-em-3d](edicao-de-video/posts-em-3d/) | Posts de Instagram, telas de música, comentários e notificações flutuando em 3D atrás de você, com giro, rebote, sombra e som. Inclui a variação "caos", que some de uma vez. |
 | Edição de vídeo | [vox-motion-graphics](edicao-de-video/vox-motion-graphics/) | Vídeo explicativo narrado em motion graphics (estilo Vox ou diorama de papel), do tema ao MP4 pronto, usando o Higgsfield. |
+| Edição de vídeo | [colagem-derretendo](edicao-de-video/colagem-derretendo/) | Você derretendo em tinta preta no meio de uma colagem editorial: grade azul, palavras gigantes, meio-tom, frases em volta da cabeça, cenas nos óculos escuros e efeitos sonoros. [Guia com imagens](edicao-de-video/colagem-derretendo/guia/README.md) |
 
 ## Como instalar uma skill
 

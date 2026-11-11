@@ -1,0 +1,390 @@
+{
+ "saida": "final.mp4",
+ "efeitos": [
+  {
+   "tipo": "tratamento",
+   "modo": "meio",
+   "de": 0,
+   "ate": "@totalmente"
+  },
+  {
+   "tipo": "rotulo",
+   "de": 0,
+   "ate": "@totalmente"
+  },
+  {
+   "tipo": "gigante",
+   "texto": "PROVAR",
+   "em": "@provar",
+   "ate": "@totalmente",
+   "y": 0.83
+  },
+  {
+   "tipo": "gigante",
+   "texto": "TOTALMENTE",
+   "em": "@totalmente",
+   "ate": "@fazer",
+   "y": 0.77,
+   "tam": 230
+  },
+  {
+   "tipo": "gigante",
+   "texto": "POSSÍVEL",
+   "em": "@possível",
+   "ate": "@fazer",
+   "y": 0.885
+  },
+  {
+   "tipo": "rotulo",
+   "de": "@fazer",
+   "ate": "@bem"
+  },
+  {
+   "tipo": "lentes",
+   "modo": "letreiro",
+   "texto": "EDIÇÃO BEM CAPRICHOSA ✦",
+   "de": "@edição",
+   "ate": "@compartilhando"
+  },
+  {
+   "tipo": "italico",
+   "texto": "bem caprichosa.",
+   "em": "@caprichosa",
+   "ate": "@compartilhando"
+  },
+  {
+   "tipo": "contorno",
+   "texto": "COMPARTILHANDO A SUA MENSAGEM",
+   "de": "@compartilhando",
+   "ate": "@com"
+  },
+  {
+   "tipo": "italico",
+   "texto": "com muito,",
+   "em": "@muito",
+   "ate": "@mas"
+  },
+  {
+   "tipo": "italico",
+   "texto": "mas muito",
+   "em": "@muito#2",
+   "ate": "@estilo"
+  },
+  {
+   "tipo": "fileiras",
+   "texto": "ESTILO",
+   "em": "@estilo",
+   "ate": "@meu"
+  },
+  {
+   "tipo": "italico",
+   "texto": "meu pequeno gafanhoto.",
+   "em": "@meu",
+   "ate": "@já"
+  },
+  {
+   "tipo": "adesivo",
+   "emoji": "🦗",
+   "em": "@gafanhoto",
+   "ate": "@já",
+   "x": 0.78,
+   "y": 0.62
+  },
+  {
+   "tipo": "parede",
+   "de": "@já",
+   "ate": "@olha"
+  },
+  {
+   "tipo": "rotulo",
+   "de": "@já",
+   "ate": "@empolgação"
+  },
+  {
+   "tipo": "gigante",
+   "texto": "EMPOLGAÇÃO",
+   "em": "@empolgação",
+   "ate": "@olha",
+   "y": 0.06
+  },
+  {
+   "tipo": "rotulo",
+   "de": "@olha",
+   "ate": "@carro"
+  },
+  {
+   "tipo": "lentes",
+   "modo": "filme",
+   "de": "@gravando",
+   "ate": "@carro",
+   "cenas_de": 19.0,
+   "cenas_ate": 21.2
+  },
+  {
+   "tipo": "foto",
+   "de": 18.97,
+   "ate": 21.3,
+   "legenda": "REC ● DE DENTRO DO CARRO"
+  },
+  {
+   "tipo": "italico",
+   "texto": "vida corrida, né, minha gente?",
+   "em": "@vida",
+   "ate": 21.3,
+   "y": 0.92
+  },
+  {
+   "tipo": "rotulo",
+   "texto": "MAS",
+   "de": "@mas#2",
+   "ate": "@joguei"
+  },
+  {
+   "tipo": "gigante",
+   "texto": "DEU",
+   "em": "@deu",
+   "ate": "@joguei",
+   "y": 0.776,
+   "tam": 300
+  },
+  {
+   "tipo": "gigante",
+   "texto": "CERTO.",
+   "em": "@certo",
+   "ate": "@joguei",
+   "y": 0.896,
+   "tam": 300
+  },
+  {
+   "tipo": "soco",
+   "em": "@mas#2",
+   "dur": 1.2
+  },
+  {
+   "tipo": "rotulo",
+   "de": "@joguei",
+   "ate": "@lá"
+  },
+  {
+   "tipo": "adesivos",
+   "de": "@joguei",
+   "ate": "@lá+0.5"
+  },
+  {
+   "tipo": "italico",
+   "texto": "mirabolantes.",
+   "em": "@mirabolantes",
+   "ate": "@lá+0.4"
+  },
+  {
+   "tipo": "rotulo",
+   "de": "@lá+0.2",
+   "ate": "@pra"
+  },
+  {
+   "tipo": "lentes",
+   "modo": "letreiro",
+   "texto": "CLAUDE ✦ FAZ ESSA EDIÇÃO ✦",
+   "fundo": "#D97757",
+   "de": "@Claude",
+   "ate": "@e"
+  },
+  {
+   "tipo": "prompt",
+   "texto": "faz essa edição pra mim",
+   "em": "@pra#2",
+   "ate": "@e"
+  },
+  {
+   "tipo": "rotulo",
+   "de": "@e",
+   "ate": "@ele"
+  },
+  {
+   "tipo": "soco",
+   "em": "@e",
+   "dur": 1.0
+  },
+  {
+   "tipo": "gigante",
+   "texto": "SE",
+   "em": "@se",
+   "ate": "@ele",
+   "y": 0.776
+  },
+  {
+   "tipo": "gigante",
+   "texto": "VIRA.",
+   "em": "@vira",
+   "ate": "@ele",
+   "y": 0.896,
+   "treme": true
+  },
+  {
+   "tipo": "lentes",
+   "modo": "palavras",
+   "esquerda": "SE",
+   "direita": "VIRA",
+   "de": "@se",
+   "ate": "@ele"
+  },
+  {
+   "tipo": "tratamento",
+   "modo": "azul",
+   "de": "@ele#2",
+   "ate": "@mas"
+  },
+  {
+   "tipo": "italico",
+   "texto": "ele sofreu, sofreu um pouco,",
+   "em": "@sofreu",
+   "ate": "@mas"
+  },
+  {
+   "tipo": "gigante",
+   "texto": "DEU",
+   "em": "@deu#2",
+   "ate": "@E",
+   "y": 0.776,
+   "tam": 300
+  },
+  {
+   "tipo": "gigante",
+   "texto": "CERTO.",
+   "em": "@certo#2",
+   "ate": "@E",
+   "y": 0.896,
+   "tam": 300
+  },
+  {
+   "tipo": "carimbo",
+   "texto": "APROVADO",
+   "em": "@certo#2",
+   "ate": "@E"
+  },
+  {
+   "tipo": "rotulo",
+   "de": "@E#2",
+   "ate": "@separei"
+  },
+  {
+   "tipo": "lista",
+   "titulo": "listinha de comandos",
+   "em": "@separei",
+   "ate": "@pra+0.6",
+   "itens": [
+    "recorta a pessoa",
+    "tinta preta derretendo",
+    "grade azul + palavras gigantes",
+    "colagem de quadros em movimento",
+    "cenas dentro dos óculos",
+    "efeitos sonoros"
+   ]
+  },
+  {
+   "tipo": "parede",
+   "de": "@pra#3",
+   "ate": "@É",
+   "tratamentos": [
+    "cor",
+    "azul",
+    "meio",
+    "cor",
+    "pb"
+   ]
+  },
+  {
+   "tipo": "rotulo",
+   "de": "@pra#3",
+   "ate": "@seu"
+  },
+  {
+   "tipo": "gigante",
+   "texto": "SEU CONTEÚDO",
+   "em": "@seu",
+   "ate": "@É",
+   "y": 0.06
+  },
+  {
+   "tipo": "rotulo",
+   "de": "@É#3",
+   "ate": "@estilo"
+  },
+  {
+   "tipo": "lentes",
+   "modo": "letreiro",
+   "texto": "COMENTA ESTILO ✦",
+   "de": "@comentar",
+   "ate": "@ah"
+  },
+  {
+   "tipo": "comentario",
+   "usuario": "@voce",
+   "texto": "estilo",
+   "em": "@comentar",
+   "ate": "@ah"
+  },
+  {
+   "tipo": "fileiras",
+   "texto": "ESTILO",
+   "em": "@estilo#2",
+   "ate": "@ah"
+  },
+  {
+   "tipo": "soco",
+   "em": "@ah",
+   "dur": 1.1
+  },
+  {
+   "tipo": "rotulo",
+   "de": "@ah",
+   "ate": "@curte"
+  },
+  {
+   "tipo": "gigante",
+   "texto": "CURTE",
+   "em": "@curte",
+   "ate": "@não",
+   "y": 0.84,
+   "tam": 360
+  },
+  {
+   "tipo": "lentes",
+   "modo": "coracoes",
+   "de": "@curte",
+   "ate": "@não"
+  },
+  {
+   "tipo": "curtidas",
+   "n": "9.999",
+   "em": "@curte",
+   "ate": "@não"
+  },
+  {
+   "tipo": "italico",
+   "texto": "o diacho desse post.",
+   "em": "@diacho",
+   "ate": "@não"
+  },
+  {
+   "tipo": "contorno",
+   "texto": "NÃO DEMORA NADA • TÁ BOM?",
+   "de": "@não",
+   "ate": "@muito"
+  },
+  {
+   "tipo": "italico",
+   "texto": "muito obrigada,",
+   "em": "@muito#3",
+   "ate": 60
+  },
+  {
+   "tipo": "gigante",
+   "texto": "TCHAU.",
+   "em": "@tchau",
+   "ate": 60,
+   "y": 0.85,
+   "tam": 380
+  }
+ ]
+}

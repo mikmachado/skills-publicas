@@ -1,0 +1,16 @@
+{
+  "saida": "final.mp4",
+  "efeitos": [
+    {"tipo": "tratamento", "modo": "meio", "de": 0, "ate": "@absurdo"},
+    {"tipo": "rotulo", "de": 0, "ate": "@absurdo"},
+    {"tipo": "gigante", "texto": "ABSURDO.", "em": "@absurdo", "ate": "@eu"},
+    {"tipo": "lentes", "modo": "letreiro", "texto": "VÍDEO ASSIM ✦", "de": "@vídeo", "ate": "@elementos"},
+    {"tipo": "contorno", "texto": "TEXTO EM ÓRBITA", "de": "@texto", "ate": "@efeitos"},
+    {"tipo": "adesivos", "de": "@elementos", "ate": "@inserções"},
+    {"tipo": "fileiras", "texto": "EFEITOS", "em": "@efeitos", "ate": "@inserções"},
+    {"tipo": "italico", "texto": "inserções animadas.", "em": "@inserções", "ate": "@para"},
+    {"tipo": "parede", "de": "@para", "ate": "@tipo"},
+    {"tipo": "rotulo", "de": "@para", "ate": "@tipo"},
+    {"tipo": "carimbo", "texto": "DEMORO", "em": "@demoro"}
+  ]
+}
