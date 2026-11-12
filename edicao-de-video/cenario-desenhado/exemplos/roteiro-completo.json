@@ -1,0 +1,25 @@
+{
+  "_fala": "Esse é o meu cantinho favorito. Mas olha só o que acontece quando eu mudo o cenário. Parece até mágica. Agora eu tô no céu, e daqui a pouco no alto de um prédio. E de volta pra minha cadeira. A cidade inteira pode virar cenário. Comenta aqui embaixo que eu te mando o passo a passo.",
+  "saida": "final.mp4",
+  "real_ate": "@mudo",
+  "real_volta": "@mando-0.3",
+  "cenas": [
+    {"em": 0,          "fundo": "parede", "cor": "rosa",        "quadros": "A", "assento": "poltrona"},
+    {"em": "@mágica",  "fundo": "parede", "cor": "verde_claro", "quadros": "B", "assento": "sofa"},
+    {"em": "@céu",     "fundo": "ceu",                                          "assento": "banquinho"},
+    {"em": "@alto",    "fundo": "terraco",                                      "assento": "predio"},
+    {"em": "@volta",   "fundo": "parede", "cor": "bege",        "quadros": "A", "assento": "poltrona"},
+    {"em": "@cidade",  "fundo": "cidade",                                       "assento": "banquinho"},
+    {"em": "@comenta", "fundo": "parede", "cor": "rosa",        "quadros": "B", "assento": "sofa"}
+  ],
+  "textos": [
+    {"linhas": [{"txt": "esse é o meu", "tam": "p"}, {"txt": "cantinho", "tam": "gg"}, {"txt": "favorito", "tam": "m", "cor": "verde", "sombra": "laranja"}]},
+    {"linhas": [{"txt": "mas olha só o que acontece quando eu", "tam": "p"}, {"txt": "mudo", "tam": "gg"}, {"txt": "o cenário", "tam": "m", "cor": "verde_escuro", "sombra": "rosa_escuro"}]},
+    {"linhas": [{"txt": "parece até", "tam": "p"}, {"txt": "mágica", "tam": "gg", "efeito": "brilho"}]},
+    {"linhas": [{"txt": "agora eu tô no", "tam": "p"}, {"txt": "céu", "tam": "gg", "efeito": "onda"}]},
+    {"linhas": [{"txt": "e daqui a pouco no", "tam": "p"}, {"txt": "alto", "tam": "gg"}, {"txt": "de um prédio", "tam": "m", "cor": "verde_escuro"}]},
+    {"linhas": [{"txt": "e de volta pra minha", "tam": "p"}, {"txt": "cadeira", "tam": "gg", "efeito": "pula"}]},
+    {"linhas": [{"txt": "a cidade inteira pode virar", "tam": "p"}, {"txt": "cenário", "tam": "gg"}]},
+    {"linhas": [{"txt": "comenta aqui embaixo", "tam": "p"}, {"txt": "passo a passo", "tam": "g", "cor": "branco", "efeito": "placa"}]}
+  ]
+}

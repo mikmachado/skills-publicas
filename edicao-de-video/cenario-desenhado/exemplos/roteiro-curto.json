@@ -1,0 +1,11 @@
+{
+  "saida": "final.mp4",
+  "real_ate": 1.5,
+  "real_volta": null,
+  "cenas": [
+    {"em": 0,   "fundo": "parede", "cor": "rosa", "assento": "poltrona"},
+    {"em": 5,   "fundo": "ceu",                   "assento": "banquinho"},
+    {"em": 9,   "fundo": "terraco",               "assento": "predio"},
+    {"em": 12,  "fundo": "cidade",                "assento": "sofa"}
+  ]
+}
