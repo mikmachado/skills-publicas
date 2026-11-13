@@ -1,0 +1,121 @@
+{
+  "saida": "final.mp4",
+  "fala": "fala.MOV",
+  "takes": {
+    "calada": {"arquivo": "sentada-calada.mov", "de": 3.55, "ate": 8.05},
+    "lupa": {"arquivo": "lupa.MOV", "de": 3.0, "ate": 8.0},
+    "capuz": {"arquivo": "capuz.MOV", "de": 19.4, "ate": 21.0}
+  },
+  "cenas": [
+    {"tipo": "em_pe", "de": 0.8, "ate": 10.95,
+     "cenario": ["estante", "planta"],
+     "objetos": [
+       {"ativo": "rolo", "em": "@edição", "ate": "@o#2", "x": 300, "y": 900, "alt": 560, "carimbo": "@vídeos"},
+       {"ativo": "brilho", "em": "@IA", "x": 320, "y": 880, "alt": 520, "carimbo": "@conteúdo"}
+     ],
+     "copias": {"de": "@o#2", "ate": "@o#3", "carimbo": "@laguinha"},
+     "camera": [[0, 1.3, [640, 880], 0], [0.8, 2.15, [640, 860], 1.5], [2.45, 1.0, null, 0.4], [4.08, 1.0, null, 0], [4.08, 1.4, [500, 1050], 2.4],
+                [6.96, 1.95, [640, 880], 0], [6.96, 1.6, [640, 900], 1.3], [8.85, 1.0, null, 0.35]],
+     "textos": [
+       {"linhas": [["o problema não é", "cinza", 66], ["edição", "vermelho", 150]], "ate": "@o"},
+       {"linhas": [["o problema não é", "cinza", 66], {"texto": "copiar", "cor": "vermelho", "tam": 150, "em": "@copiado"},
+                   {"texto": "do coleguinha", "tam": 70, "em": "@laguinha"}], "ate": "@o"},
+       {"linhas": [["também não é usar", "cinza", 66], ["IA", "vermelho", 170], {"texto": "na criação do seu conteúdo", "tam": 52, "em": "@na"}]}
+     ]},
+
+    {"tipo": "cerebro", "de": 11.3, "ate": 18.42, "pb": false,
+     "abre_em": "@problema+0.1",
+     "mini": {"take": "calada", "cai_em": "@não"},
+     "objetos": [
+       {"ativo": "lupa", "em": "@avaliar", "onde": "mini", "alt": 330},
+       {"ativo": "estrela", "em": "@bom", "onde": "esquerda", "alt": 190},
+       {"ativo": "mascara", "em": "@tragédia", "onde": "topo", "alt": 230}
+     ],
+     "canto": {"take": "lupa", "em": "@avaliar"},
+     "cabeca_canto": {"take": "capuz", "em": "@tragédia", "cor": "magenta"},
+     "camera": [[0, 1.0, null, 0], [11.3, 1.1, [560, 950], 1.6], [14.25, 1.25, [620, 900], 0], [14.25, 1.15, [600, 950], 1.6],
+                [16.39, 1.0, null, 0], [16.39, 1.08, [540, 1000], 1.8]],
+     "textos": [
+       {"max_x": 620, "linhas": [["sabe qual o", "cinza", 62], ["problema?", "vermelho", 118]]},
+       {"max_x": 620, "linhas": [["não saber", "cinza", 62], ["avaliar", "vermelho", 128]]},
+       {"max_x": 620, "linhas": [["se aquilo que", "cinza", 62], ["a IA criou", "vermelho", 110]]},
+       {"max_x": 620, "linhas": [["é bom", "vermelho", 110], ["ou uma", "cinza", 62], ["tragédia.", "vermelho", 120]]}
+     ]},
+
+    {"tipo": "tv", "de": 19.0, "ate": 25.4, "fixos": [[19.0, 20.3]],
+     "objeto_sai": {"ativo": "rolo", "em": "@filme"},
+     "textos": [
+       {"linhas": [["nossa,", "cinza", 90], ["não acredito que eu", "cinza", 60], ["perdi tempo", "vermelho", 130],
+                   ["com o diacho desse", "cinza", 60], ["filme.", "vermelho", 120]]}
+     ]},
+
+    {"tipo": "mala", "de": 30.12, "ate": 37.75, "pb": {"de": "@tudo"},
+     "mala_em": "@repertório",
+     "itens": [{"ativo": "aviao", "em": "@viagem"}, {"ativo": "livro", "em": "@livro"},
+               {"ativo": "carro", "em": "@carro"}, {"ativo": "xicara1", "em": "@amigos"}],
+     "enche": {"em": "@tudo", "n": 12},
+     "pula_em": "@bagagem",
+     "carro": {"de": 33.85, "ate": 34.62, "rosto": 40.6},
+     "camera": [[0, 1.35, [540, 880], 0], [30.12, 1.2, [540, 900], 1.6], [31.91, 1.0, null, 0.35], [36.02, 1.25, [540, 860], 0], [36.02, 1.12, [540, 900], 1.4]],
+     "textos": [
+       {"linhas": [["isso aqui vai virar", "cinza", 64], ["repertório.", "vermelho", 140]]},
+       {"linhas": [{"texto": "viagem,", "cor": "vermelho", "tam": 96, "x": 80, "y": 160}, {"texto": "livro,", "cor": "vermelho", "tam": 96, "x": 520, "y": 160},
+                   {"texto": "carro,", "cor": "vermelho", "tam": 96, "x": 80, "y": 285}, {"texto": "amigos", "cor": "vermelho", "tam": 96, "x": 470, "y": 285}]},
+       {"linhas": [["tudo vai para sua", "cinza", 64], ["bagagem.", "vermelho", 140]]}
+     ]},
+
+    {"tipo": "celular", "de": 39.85, "ate": 45.33, "olha": "direita", "disco_cor": "amarelo",
+     "celular_em": 40.6, "enche_em": "@acessar", "explode_em": "@conteúdo",
+     "itens": ["livro", "carro", "aviao", "xicara1"], "feed_quadros": [33.0, 76.0, 15.0, 14.0],
+     "camera": [[0, 1.0, null, 0], [39.85, 1.22, [500, 820], 2.0], [41.8, 1.0, null, 0.45], [43.83, 1.2, [640, 1080], 1.0]],
+     "textos": [
+       {"x": 560, "linhas": [["o desafio está em", "cinza", 56], ["acessar", "vermelho", 120], ["tudo isso", "cinza", 56],
+                             ["e transformar em", "cinza", 56], ["conteúdo.", "vermelho", 100]]}
+     ]},
+
+    {"tipo": "cerebro", "de": 46.47, "ate": 57.22, "pb": false, "fixos": [[46.47, 47.7]],
+     "gigante": {"de": 46.47, "ate": 47.7},
+     "abre_em": 46.59,
+     "mini": {"take": "fala", "de": 50.0, "cai_em": 47.4},
+     "figurinhas": [
+       {"em": "@outros", "quadro": 33.0, "cor": "verde", "x": 190, "y": 1060, "giro": -8},
+       {"em": "@estilos", "quadro": 76.0, "cor": "amarelo", "x": 905, "y": 1150, "giro": 9},
+       {"em": "@estilos+0.3", "quadro": 15.0, "cor": "azul", "x": 880, "y": 1560, "giro": -6}
+     ],
+     "camera": [[0, 1.0, null, 0], [50.4, 1.1, [600, 800], 2.0], [52.93, 1.9, [700, 470], 0], [52.93, 1.65, [700, 520], 1.2],
+                [54.15, 1.0, null, 0], [56.3, 1.3, [560, 900], 0], [56.3, 1.15, [560, 950], 0.9]],
+     "textos": [
+       {"max_x": 600, "linhas": [["outra questão é a", "cinza", 56], ["roupagem.", "vermelho", 110]]},
+       {"max_x": 600, "linhas": [["como você vai", "cinza", 56], ["arriscar", "vermelho", 100], ["outros estilos", "vermelho", 70]]},
+       {"max_x": 600, "linhas": [["se você nem sabe da", "cinza", 52], ["existência", "vermelho", 106], ["deles?", "cinza", 80]]}
+     ]},
+
+    {"tipo": "perfil", "de": 57.58, "ate": 72.7, "olha": "esquerda", "disco_cor": "vermelho", "pb": {"ate": 69.75},
+     "tesoura": {"de": "@colagem", "ate": 63.2},
+     "objetos": [{"ativo": "livro", "em": "@contar", "ate": 63.2, "x": 170, "y": 1300}],
+     "figurinhas": [
+       {"em": "@dinâmico", "ate": 68.64, "quadro": 14.0, "cor": "verde", "x": 195, "y": 780},
+       {"em": "@divertido", "ate": 68.64, "quadro": 31.0, "cor": "amarelo", "x": 240, "y": 1180},
+       {"em": "@pouco", "ate": 68.64, "quadro": 78.0, "cor": "azul", "x": 185, "y": 1560}
+     ],
+     "nuvem_em": "@pitadinha", "peixe_em": "@surrealismo", "coracao_em": "@amo",
+     "camera": [[0, 1.0, null, 0], [57.58, 1.22, [640, 900], 2.2], [59.1, 1.0, null, 0.4], [60.25, 1.32, [640, 900], 0], [60.25, 1.15, [640, 900], 2.6],
+                [63.95, 1.0, null, 0], [63.95, 1.08, [600, 950], 4.0], [68.59, 1.35, [640, 900], 0], [69.75, 1.0, null, 0.5]],
+     "textos": [
+       {"linhas": [["eu escolhi esse estilo de", "cinza", 52], ["colagem editorial", "vermelho", 100]]},
+       {"linhas": [["porque ele é perfeito para", "cinza", 52], ["contar uma história.", "vermelho", 96]]},
+       {"linhas": [["dinâmico,", "vermelho", 100], ["divertido,", "vermelho", 100], {"texto": "pouco previsível.", "cor": "vermelho", "tam": 90, "em": "@muito"}]},
+       {"linhas": [["e sabe o que mais?", "cinza", 56], ["uma pitadinha de", "cinza", 56], ["surrealismo", "vermelho", 120], ["que eu amo.", "cinza", 60]]}
+     ]},
+
+    {"tipo": "cta", "de": 72.95, "ate": 80.05, "pb": false,
+     "etiqueta": {"texto": "“SURREAL”", "em": "@surreal"},
+     "objeto": {"ativo": "zine", "em": "@guia"},
+     "camera": [[0, 1.0, null, 0], [72.95, 1.12, [540, 1060], 0.9], [74.3, 1.0, null, 0.3]],
+     "textos": [
+       {"linhas": [["falar nisso,", "cinza", 60], ["comenta", "cinza", 72]], "ate": 99},
+       {"y": 1560, "max_x": 640, "linhas": [["um guia", "vermelho", 100], ["passo a passo", "cinza", 66]]},
+       {"y": 1560, "max_x": 640, "linhas": [["e aplicar esse estilo", "cinza", 56], ["nos seus próximos", "cinza", 56], ["vídeos.", "vermelho", 100]]}
+     ]}
+  ]
+}
