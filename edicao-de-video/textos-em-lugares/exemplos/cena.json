@@ -1,0 +1,48 @@
+{
+  "trocas": {
+    "cloud": "Claude"
+  },
+  "destaques": [
+    "texto",
+    "escada",
+    "claude"
+  ],
+  "max_palavras": 8,
+  "geometria": {
+    "_comentario": "só os números do LUGAR; cada efeito lista no topo do script quais lê. Exemplos:",
+    "quad_chao": [
+      [
+        318,
+        1080
+      ],
+      [
+        762,
+        1080
+      ],
+      [
+        1300,
+        2050
+      ],
+      [
+        -220,
+        2050
+      ]
+    ],
+    "pico": "texto",
+    "pes": [
+      547,
+      1222
+    ],
+    "inclinacao": 45,
+    "degraus": [
+      -504.61,
+      11839.81,
+      16.1
+    ],
+    "patamar_k": 10.15,
+    "fuga": [
+      553,
+      720
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "base": "base.mp4",
+  "transcricao": "transcricao.json",
+  "saida": "parede.mp4",
+  "rosto": [650, 560],
+  "parede": {
+    "lado": "esquerda",
+    "vp": [838, 950],
+    "focal": 1550,
+    "z": [1.95, 3.75],
+    "y": [-1.15, 1.15],
+    "px_por_unidade": 800
+  },
+  "cores": {"": "#1E1B19", "t": "#C4543A", "p": "#186872", "m": "#DEA026"},
+  "telas": [
+    {"linhas": [[["antes eu", "L", 2]], [["demorava", "S", 1]], [["um", "l", 1], ["TEMPÃO", "H:t", 1]], [["pra fazer vídeos", "l", 3]], [["que nem esse.", "m:p", 3]]]},
+    {"linhas": [[["colocar", "L", 1]], [["TEXTOS,", "H", 1]]]},
+    {"feed": {
+      "palavras": 6,
+      "posts": ["posts/post1.jpg", "posts/video1.mp4", "posts/post2.jpg", "posts/post3.jpg"],
+      "perfil": "seu_perfil",
+      "avatar": "posts/avatar.jpg",
+      "rotulos": [
+        [[["imagens,", "S", 1], ["vídeos", "H:t", 1]]],
+        [[["na parede em", "L", 3]], [["perspectiva.", "M:t", 1]]]
+      ]
+    }},
+    {"prints": {
+      "palavras": 14,
+      "titulo": [["mas olha aí, eu tinha que usar", "l", 7]],
+      "itens": [
+        {"nome": "Canva", "imagem": "prints/canva.png", "palavra": 8, "cor": "t"},
+        {"nome": "Alight Motion", "imagem": "prints/alight.png", "palavra": 10, "cor": "p"},
+        {"nome": "CapCut", "imagem": "prints/capcut.png", "palavra": 13, "cor": "m"}
+      ]
+    }},
+    {"pular": 2},
+    {"linhas": [[["só", "L", 1]], [["coisa boa.", "M:t", 2]]]}
+  ]
+}

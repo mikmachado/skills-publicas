@@ -13,6 +13,8 @@ Uma **skill** é uma pasta com instruções (`SKILL.md`) e, às vezes, scripts q
 | Edição de vídeo | [vox-motion-graphics](edicao-de-video/vox-motion-graphics/) | Vídeo explicativo narrado em motion graphics (estilo Vox ou diorama de papel), do tema ao MP4 pronto, usando o Higgsfield. |
 | Edição de vídeo | [colagem-derretendo](edicao-de-video/colagem-derretendo/) | Você derretendo em tinta preta no meio de uma colagem editorial: grade azul, palavras gigantes, meio-tom, frases em volta da cabeça, cenas nos óculos escuros e efeitos sonoros. [Guia com imagens](edicao-de-video/colagem-derretendo/guia/README.md) |
 | Edição de vídeo | [cenario-desenhado](edicao-de-video/cenario-desenhado/) | Você sentada num cenário desenhado à mão que vai se transformando enquanto fala: poltrona, sofá, banquinho, topo de prédio, céu e cidade, com textos animados e começo e fim no cenário real. |
+| Edição de vídeo | [textos-em-lugares](edicao-de-video/textos-em-lugares/) | A legenda da sua fala pintada no cenário real: no chão, num painel gigante atrás de você, nos degraus de uma escada, em volta do corpo, em anéis no chão e na parede, com você passando na frente. Faz também a montagem para Reels. |
+| Edição de vídeo | [texto-seguindo-gestos](edicao-de-video/texto-seguindo-gestos/) | Você desenha formas no ar com as mãos e a frase fica presa na forma: arco, quadrado, círculo, linha, zigue-zague, ondas. O texto aparece por onde a mão passa, a forma fecha e sai. Mantém o HDR do iPhone. |
 
 ## Como instalar uma skill
 

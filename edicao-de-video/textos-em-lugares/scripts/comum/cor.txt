@@ -1,0 +1,1 @@
+eq=contrast=1.07:saturation=1.22:brightness=0.01,colorbalance=rs=0.03:bs=-0.04:rm=0.06:gm=0.015:bm=-0.05:rh=0.03:gh=0.01:bh=-0.03,curves=all=0/0.015 0.25/0.235 0.5/0.52 0.75/0.79 1/0.99,vignette=angle=PI/9

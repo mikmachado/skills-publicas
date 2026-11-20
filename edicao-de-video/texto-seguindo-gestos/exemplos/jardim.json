@@ -1,0 +1,42 @@
+{
+  "_sobre": "Vídeo de exemplo (pessoa sentada num banco de jardim, 20 s). Tempos em segundos. Mão 0 = à esquerda da tela, 1 = à direita.",
+  "quadros": "quadros",
+  "trocas": {"CLAUDIO": "CLAUDE"},
+  "espelhar": [[11.45, 14.1]],
+  "formas": [
+    {"_gesto": "as duas mãos sobem juntas e abrem para os lados",
+     "tipo": "arco", "cx": 555, "base": 1250, "rx": 410, "alt": 650,
+     "linhas": ["TEXTO SEGUINDO SEUS MOVIMENTOS"], "maos": [0, 1],
+     "g0": 0.9, "g1": 3.3, "fecha": 3.2, "sai": 3.9, "tam": 100},
+
+    {"_gesto": "uma mão sobe pela esquerda, cruza por cima e desce pela direita (um pedaço da frase por lado)",
+     "tipo": "retangulo", "x0": 225, "y0": 545, "x1": 815, "y1": 1235, "r": 70,
+     "linhas": ["VOCÊ PODE", "BRINCAR", "COM AS FORMAS"], "maos": [0],
+     "g0": 4.0, "g1": 6.1, "fecha": 6.0, "sai": 6.75, "tam": 100},
+
+    {"_gesto": "as duas mãos dão a volta",
+     "tipo": "elipse", "cx": 550, "cy": 925, "rx": 455, "ry": 345, "a0": 180, "a1": 540,
+     "linhas": ["PODE FAZER UM CÍRCULO  •  PODE FAZER UM CÍRCULO  •"], "maos": [0, 1],
+     "g0": 6.85, "g1": 8.35, "fecha": 8.25, "sai": 8.9, "tam": 100},
+
+    {"_gesto": "mão varre na horizontal (trecho espelhado para ir da esquerda pra direita)",
+     "tipo": "linha", "x0": 110, "y0": 905, "x1": 970, "y1": 905,
+     "linhas": ["QUEM VAI FAZER ESSA EDIÇÃO", "PARA VOCÊ É O CLAUDE"], "maos": [1],
+     "g0": 11.5, "g1": 13.5, "fecha": 13.0, "sai": 14.1, "tam": 96, "esquerda_pra_direita": true},
+
+    {"_gesto": "arco por cima da cabeça = metade de cima do oval final",
+     "tipo": "elipse", "cx": 480, "cy": 905, "rx": 345, "ry": 395, "a0": 180, "a1": 360,
+     "linhas": ["SÓ VOCÊ COMENTAR AQUI JARDIM"], "maos": [0],
+     "g0": 14.2, "g1": 16.3, "fecha": 15.9, "sai": 99, "tam": 96},
+
+    {"_gesto": "a mão desce pelo lado e fecha o oval por baixo",
+     "tipo": "elipse", "cx": 480, "cy": 905, "rx": 345, "ry": 395, "a0": 180, "a1": 0, "letras": "dentro",
+     "linhas": ["E PEGAR A SKILL E COLOCAR", "O CLAUDE PARA EDITAR PARA VOCÊ"], "maos": [0],
+     "g0": 16.4, "g1": 17.6, "fecha": 17.6, "sai": 99, "tam": 80}
+  ],
+  "blocos": [
+    {"_sobre": "sem gesto grande: texto acima da cabeça entrando com a fala",
+     "linhas": [["E O MELHOR", 92], ["VOCÊ NÃO PRECISA", 92], ["MANJAR DE EDIÇÃO", 118]],
+     "y0": 250, "t0": 8.4, "sai": 11.45}
+  ]
+}

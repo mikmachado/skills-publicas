@@ -1,0 +1,56 @@
+{
+  "cenas": [
+    {
+      "pasta": "cena1",
+      "video": "comp.mp4",
+      "pop": [
+        "texto",
+        "lugares"
+      ]
+    },
+    {
+      "pasta": "cena2",
+      "video": "comp.mp4",
+      "pop": [
+        "texto",
+        "chão"
+      ]
+    },
+    {
+      "pasta": "cena3",
+      "video": "comp.mp4",
+      "pop": [
+        "escada",
+        "irado"
+      ]
+    },
+    {
+      "pasta": "cena4",
+      "video": "comp.mp4",
+      "pop": [
+        "corpo",
+        "incrível"
+      ]
+    },
+    {
+      "pasta": "cena5",
+      "video": "comp.mp4",
+      "pop": [
+        "chão",
+        "maravilhoso"
+      ]
+    },
+    {
+      "pasta": "cena6",
+      "video": "comp.mp4",
+      "pop": [
+        "comenta",
+        "texto"
+      ],
+      "segura_fim": true
+    }
+  ],
+  "velocidade": 1.2,
+  "musica": null,
+  "saida": "final/video.mp4"
+}
