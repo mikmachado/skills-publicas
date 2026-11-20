@@ -1,0 +1,33 @@
+{
+  "_sobre": "Config do vídeo 'A arte de sair de casa' (pessoa encostada numa parede de pedra, 15s). Coordenadas em px do QUADRO 1 (1080x1920); o que está na parede acompanha a câmera pela homografia. Cores: amarelo, branco, rosa, laranja, ciano, lima, roxo.",
+  "pedras": {"ativo": true, "fracao_pintada": 0.68, "opacidade": 0.82, "origem_onda": [540, 1000], "t_inicio": 0.25, "velocidade_onda": 650},
+  "costura": {"a": 1538.6, "b": 0.0295},
+  "contorno_pessoa": true,
+  "titulo": {"linhas": ["A ARTE DE", "SAIR DE CASA", "E VIAJAR"], "t0": 0.45, "t1": 4.5, "y": 330},
+  "palavras_parede": [
+    {"texto": "CRIATIVIDADE", "cor": "amarelo", "t": 4.7, "x": 540, "y": 560, "tam": 118, "giro": -3},
+    {"texto": "ARTE", "cor": "rosa", "t": 5.4, "x": 195, "y": 905, "tam": 165, "giro": -8},
+    {"texto": "VIAJAR", "cor": "ciano", "t": 6.1, "x": 885, "y": 835, "tam": 122, "giro": 7},
+    {"texto": "SAIR DE", "cor": "branco", "t": 6.8, "x": 205, "y": 1150, "tam": 92, "giro": 4},
+    {"texto": "CASA", "cor": "branco", "t": 6.95, "x": 205, "y": 1245, "tam": 104, "giro": 4},
+    {"texto": "EXPLORAR", "cor": "lima", "t": 7.6, "x": 880, "y": 1125, "tam": 96, "giro": -5},
+    {"texto": "INSPIRAR", "cor": "laranja", "t": 8.3, "x": 205, "y": 1420, "tam": 90, "giro": -4},
+    {"texto": "CORES", "cor": "roxo", "t": 9.0, "x": 885, "y": 1395, "tam": 118, "giro": 5},
+    {"texto": "LIBERDADE", "cor": "amarelo", "t": 9.7, "x": 540, "y": 345, "tam": 104, "giro": 2}
+  ],
+  "palavras_parede_saem": 11.9,
+  "final": [
+    {"texto": "SAIA.", "cor": "amarelo", "t": 12.2, "y": 300, "tam": 200},
+    {"texto": "VIAJE.", "cor": "ciano", "t": 12.75, "y": 505, "tam": 200},
+    {"texto": "CRIE.", "cor": "rosa", "t": 13.3, "y": 715, "tam": 215}
+  ],
+  "rabiscos_chao": [
+    {"forma": "estrela", "x": 150, "y": 1700, "tam": 62, "cor": "amarelo", "t": 1.6},
+    {"forma": "coracao", "x": 890, "y": 1690, "tam": 58, "cor": "rosa", "t": 1.8},
+    {"forma": "zigue", "x": 270, "y": 1830, "tam": 9, "cor": "ciano", "t": 2.0},
+    {"forma": "espiral", "x": 930, "y": 1840, "tam": 60, "cor": "lima", "t": 2.2},
+    {"forma": "estrela", "x": 60, "y": 1810, "tam": 40, "cor": "laranja", "t": 2.4},
+    {"forma": "coracao", "x": 760, "y": 1860, "tam": 44, "cor": "roxo", "t": 2.6},
+    {"forma": "estrela", "x": 1010, "y": 1630, "tam": 36, "cor": "ciano", "t": 2.1}
+  ]
+}

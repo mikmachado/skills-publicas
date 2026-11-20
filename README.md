@@ -15,6 +15,7 @@ Uma **skill** é uma pasta com instruções (`SKILL.md`) e, às vezes, scripts q
 | Edição de vídeo | [cenario-desenhado](edicao-de-video/cenario-desenhado/) | Você sentada num cenário desenhado à mão que vai se transformando enquanto fala: poltrona, sofá, banquinho, topo de prédio, céu e cidade, com textos animados e começo e fim no cenário real. |
 | Edição de vídeo | [textos-em-lugares](edicao-de-video/textos-em-lugares/) | A legenda da sua fala pintada no cenário real: no chão, num painel gigante atrás de você, nos degraus de uma escada, em volta do corpo, em anéis no chão e na parede, com você passando na frente. Faz também a montagem para Reels. |
 | Edição de vídeo | [texto-seguindo-gestos](edicao-de-video/texto-seguindo-gestos/) | Você desenha formas no ar com as mãos e a frase fica presa na forma: arco, quadrado, círculo, linha, zigue-zague, ondas. O texto aparece por onde a mão passa, a forma fecha e sai. Mantém o HDR do iPhone. |
+| Edição de vídeo | [desenhos-animados](edicao-de-video/desenhos-animados/) | Desenhos coloridos animados por cima do cenário real: linhas tremidas contornando muro, prédios, árvores e você, parede virando mosaico colorido, rabiscos no chão, título de filme, palavras pipocando presas à parede e frase final. Funciona com você parada na parede ou andando. [Guia com imagens](edicao-de-video/desenhos-animados/guia/README.md) |
 
 ## Como instalar uma skill
 
