@@ -11,7 +11,7 @@ Os efeitos ficam presos aos **seus gestos de verdade**. O Claude marca o punho, 
 
 ![](guia/imagens/video.jpg)
 
-[Guia com imagens de cada efeito](guia/README.md)
+**[Guia completo no Google Docs](https://docs.google.com/document/d/1hW30r9Cajr0QiF9IPLypK5vpXypNOTh2w2h05DhdLuM/edit)**: como gravar, como pedir ao Claude e o que dá para trocar. · [Imagens de cada efeito](guia/README.md)
 
 ## Como instalar
 
